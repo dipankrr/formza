@@ -1,0 +1,74 @@
+import { z, zodUndefinedModel } from "../../schema";
+import { userService } from "../../services";
+import { getAuthenticationMethodOutputSchema, loginResponseSchema, logInSchema, registerSchema, userResponseSchema } from "@repo/services/user/model";
+import { protectedProcedure, publicProcedure, router } from "../../trpc";
+import { generatePath } from "../../utils/path-generator";
+import { env } from "../../../../database/env";
+
+const TAGS = ["Authentication"];
+const getPath = generatePath("/authentication");
+
+export const authRouter = router({
+
+  registerUser: publicProcedure
+    .meta({ openapi: { method: "POST", path: getPath("/register"), tags: TAGS } })
+    .input(registerSchema)
+    .output(userResponseSchema)
+    .mutation(async ({ input }) => {
+      return userService.registerUser(input);
+    }),
+
+
+    loginUser: publicProcedure
+    .meta({ openapi: { method: "POST", path: getPath("/login"), tags: TAGS } })
+    .input(logInSchema)
+    .output(loginResponseSchema)
+    .mutation(async ({ input, ctx }) => {
+
+      const loginResult = await userService.loginUser(input);
+
+    ctx.res.cookie(
+      "accessToken",
+      loginResult.accessToken,
+      {
+         httpOnly:true,
+         secure: true,
+         sameSite:"lax",
+         maxAge:7*24*60*60*1000
+        }
+      );
+
+      return loginResult;
+    }),
+
+
+    getCurrentUser: protectedProcedure
+    .meta({ openapi: { method: "GET", path: getPath("/me"), tags: TAGS } })
+    .input(zodUndefinedModel)
+    .output(userResponseSchema.nullable())
+    .query(async ({ ctx }) => {
+      if (!ctx.user) {
+        return null;
+      }
+      const user = await userService.getUserById(ctx.user.id);
+      if (!user) {
+        return null;
+      }
+      return { id: user.id,
+        name: user.name,
+        email: user.email,
+        emailVerified: user.emailVerified
+      };
+    }),
+
+
+    // -----------
+  getSupportedAuthenticationProviders: publicProcedure
+    .meta({ openapi: { method: "GET", path: getPath("/supported-providers"), tags: TAGS } })
+    .input(zodUndefinedModel)
+    .output(z.readonly(z.array(getAuthenticationMethodOutputSchema)))
+    .query(async () => {
+      const supportedMethods = await userService.getAuthenticationMethods();
+      return supportedMethods;
+    }),
+});
