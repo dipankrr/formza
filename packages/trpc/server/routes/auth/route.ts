@@ -1,6 +1,6 @@
 import { z, zodUndefinedModel } from "../../schema";
 import { userService } from "../../services";
-import { getAuthenticationMethodOutputSchema, loginResponseSchema, logInSchema, registerSchema, userResponseSchema } from "@repo/services/user/model";
+import { getAuthenticationMethodOutputSchema, loginResponseSchema, logInSchema, registerSchema, userResponseSchema } from "@repo/shared";
 import { protectedProcedure, publicProcedure, router } from "../../trpc";
 import { generatePath } from "../../utils/path-generator";
 import { env } from "../../../../database/env";

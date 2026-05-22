@@ -2,7 +2,7 @@ import { db } from "@repo/database";
 import { SelectUser, usersTable } from "@repo/database/schema";
 import { env } from "../env";
 import { googleOAuth2Client } from "../clients/google-oauth";
-import { GetAuthenticationMethodOutputSchema, LogInInputType, LoginResponseType, RegisterInputType, UserResponseType } from "./model";
+import { GetAuthenticationMethodOutputSchema, LogInInputType, LoginResponseType, RegisterInputType, UserResponseType } from "@repo/shared";
 import { eq, sql } from "drizzle-orm";
 import { InternalServerError, InvalidCredentialsError, UserAlreadyExistsError } from "../../trpc/server/utils/errors";
 import bcrypt from "bcryptjs";

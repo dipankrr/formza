@@ -10,6 +10,13 @@ export default defineConfig({
         tailwindcss()
     ],
 
+  server: {
+    watch: {
+      usePolling: true,
+      interval: 100,
+    },
+  },
+
     resolve:{
         alias:{
             "@": path.resolve(

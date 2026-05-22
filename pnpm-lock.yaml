@@ -97,6 +97,9 @@ importers:
       '@hookform/resolvers':
         specifier: ^5.4.0
         version: 5.4.0(react-hook-form@7.76.0(react@19.2.6))
+      '@repo/shared':
+        specifier: workspace:*
+        version: link:../../packages/shared
       '@repo/trpc':
         specifier: workspace:*
         version: link:../../packages/trpc
@@ -323,6 +326,9 @@ importers:
       '@repo/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
+      '@repo/shared':
+        specifier: workspace:*
+        version: link:../shared
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
@@ -338,6 +344,12 @@ importers:
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
+
+  packages/shared:
+    dependencies:
+      zod:
+        specifier: ^4.3.5
+        version: 4.3.5
 
   packages/trpc:
     dependencies:
@@ -363,6 +375,9 @@ importers:
       '@repo/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
+      '@repo/shared':
+        specifier: workspace:*
+        version: link:../shared
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config

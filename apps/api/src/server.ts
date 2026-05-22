@@ -19,13 +19,20 @@ const openApiDocument = generateOpenApiDocument(serverRouter, {
   baseUrl: env.BASE_URL.concat("/api"),
 });
 
-if (env.NODE_ENV !== "prod") {
-  app.use(
+// if (env.NODE_ENV !== "prod") {
+//   app.use(
+//     cors({
+//     origin: "http://localhost:5173", // frontend URL
+//     credentials: true,
+//     }),
+//   );
+// }
+app.use(
     cors({
-      origin: "*",
+    origin: "http://localhost:5173", // frontend URL
+    credentials: true,
     }),
   );
-}
 
 app.use(express.json());
 
