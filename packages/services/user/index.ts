@@ -19,7 +19,9 @@ class UserService {
     }
 
      public async getUserById(id: string) {
+      logger.info("id:getUserById::", id)
         const result = await db.select().from(usersTable).where(eq(usersTable.id, id));
+        logger.info(result)
         if (!result || result.length === 0) return null;
         return result[0];
     }

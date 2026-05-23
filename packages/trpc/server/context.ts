@@ -5,7 +5,6 @@ import {userService} from "./services/index";
 
 type User = {
     id: string;
-    email: string;
 } | null;
 
 export type Context = {
@@ -29,7 +28,6 @@ export async function createContext({
     if(payload){
         user = {
                 id: payload.id,
-                email: payload.email,
             };
     }
 

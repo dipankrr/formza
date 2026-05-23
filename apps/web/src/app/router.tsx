@@ -2,19 +2,44 @@ import { createBrowserRouter } from "react-router-dom";
 
 import HomePage from "../routes/Home";
 import LoginPage from "../routes/Login";
-import RegisterPage from "@/routes/register";
+import RegisterPage from "../routes/Register";
+import Dashboard from "../routes/Dashboard";
+
+import { ProtectedLayout } from "@/lib/ProtectedLayout";
+import GuestLayout from "@/lib/GuestLayoout";
 
 export const router = createBrowserRouter([
+    // public routes
     {
-        path:"/",
-        element:<HomePage/>
+        path: "/",
+        element: <HomePage />
     },
+
+    // guest routes
+
     {
-        path:"/login",
-        element:<LoginPage/>
+        element: <GuestLayout />,
+        children: [
+            {
+                path: "/login",
+                element: <LoginPage />
+            },
+            {
+                path: "/register",
+                element: <RegisterPage />
+            },
+        ]
     },
+            
+
+    // protected group
     {
-        path:"/register",
-        element:<RegisterPage/>
+        element: <ProtectedLayout />,
+        children: [
+            {
+                path: "/dashboard",
+                element: <Dashboard />
+            },
+        ]
     }
 ]);
