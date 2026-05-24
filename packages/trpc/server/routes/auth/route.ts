@@ -3,7 +3,6 @@ import { userService } from "../../services";
 import { getAuthenticationMethodOutputSchema, loginResponseSchema, logInSchema, registerSchema, userResponseSchema } from "@repo/shared";
 import { protectedProcedure, publicProcedure, router } from "../../trpc";
 import { generatePath } from "../../utils/path-generator";
-import { env } from "../../../../database/env";
 import { logger } from "../../../../logger";
 
 const TAGS = ["Authentication"];
