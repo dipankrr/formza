@@ -47,10 +47,7 @@ const visibilitySchema = z.enum([
 //     .optional()
 //     .nullable();
 
-const expiresAtSchema = z
-    .date()
-    .optional()
-    .nullable();
+const expiresAtSchema = z.coerce.date().optional();
 
 
 // ======================
@@ -96,7 +93,7 @@ export const createFormSchema =
                 .default("public"),
         expiresAt:
             expiresAtSchema.optional(),
-            
+
         settings:
             formSettingsSchema
                 .default({
@@ -185,6 +182,7 @@ export const formResponseSchema =
 // ======================
 
 export type CreateFormInputType = z.infer<typeof createFormSchema>;
+export type CreateFormActualInputType = z.input<typeof createFormSchema>;
 
 export type UpdateFormInputType = z.infer<typeof updateFormSchema>;
 

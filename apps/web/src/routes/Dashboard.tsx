@@ -19,6 +19,7 @@ import {SidebarProvider,SidebarTrigger}from "@/components/ui/sidebar";
 import { AppSidebar }from "@/components/dashboard/app-sidebar";
 import { AnalyticsCards }from "@/components/dashboard/analytics-cards";
 import { FormsList }from "@/components/dashboard/forms-list";
+import { CreateFormDialog } from "@/components/forms/create-form-dialog";
 
 export default function Dashboard() {
 
@@ -45,10 +46,8 @@ export default function Dashboard() {
                             Templates
                         </Button>
 
-                        <Button>
-                            <Plus />
-                            New Form
-                        </Button>
+                        <CreateFormDialog />
+
                     </div>
 
                 </div>

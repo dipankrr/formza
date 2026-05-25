@@ -7,6 +7,7 @@ import Dashboard from "../routes/Dashboard";
 
 import { ProtectedLayout } from "@/lib/ProtectedLayout";
 import GuestLayout from "@/lib/GuestLayoout";
+import FormEditorPage from "@/routes/FormEditorPage";
 
 export const router = createBrowserRouter([
     // public routes
@@ -40,6 +41,10 @@ export const router = createBrowserRouter([
                 path: "/dashboard",
                 element: <Dashboard />
             },
+            {
+                path:"/forms/:formId/edit",
+                element:<FormEditorPage/>
+            }
         ]
     }
 ]);
