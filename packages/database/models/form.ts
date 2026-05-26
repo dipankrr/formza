@@ -11,9 +11,10 @@ import {
   uniqueIndex,
 } from "drizzle-orm/pg-core";
 
-import { sql } from "drizzle-orm";
+import { sql, relations } from "drizzle-orm";
 
 import {usersTable}  from "./user";
+import { formFields } from "./form_fields";
 // import { themes } from "./themes";
 
 
@@ -112,6 +113,14 @@ export const formsTable = pgTable(
   ]
 );
 
+// Relations
+export const formsRelations = relations(formsTable, ({ one, many }) => ({
+  creator: one(usersTable, {
+    fields: [formsTable.creatorId],
+    references: [usersTable.id],
+  }),
+  fields: many(formFields),
+}))
 
 export type SelectFormDBType = typeof formsTable.$inferSelect;
 export type InsertFormDBType = typeof formsTable.$inferInsert;
